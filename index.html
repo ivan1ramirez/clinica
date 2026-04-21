@@ -5,7 +5,815 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>EAC Lucía — Entorno de Aprendizaje Constructivista | Psicología Clínica</title>
   <meta name="description" content="Plataforma de aprendizaje constructivista basada en el Modelo de Jonassen para la Maestría en Psicología Clínica. Caso clínico de Lucía." />
-  <link rel="stylesheet" href="css/styles.css" />
+  <style>
+/* ============================================================
+   EAC LUCÍA — Entorno de Aprendizaje Constructivista
+   EDUCEM / Psicología Clínica | Modelo de Jonassen
+   ============================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Source+Serif+4:opsz,wght@8..60,300;8..60,400;8..60,600&family=JetBrains+Mono:wght@400;500&display=swap');
+
+/* ── CSS Variables ── */
+:root {
+  --blue-900: #0A1628;
+  --blue-800: #0E2040;
+  --blue-700: #133060;
+  --blue-600: #1A4080;
+  --blue-500: #1E5299;
+  --blue-400: #2E6DB4;
+  --blue-300: #5B95D0;
+  --blue-200: #A8C8E8;
+  --blue-100: #D6E8F6;
+  --blue-50:  #EEF5FC;
+  --gold:     #C8A84B;
+  --gold-lt:  #E8D08A;
+  --crimson:  #8B1A2E;
+  --white:    #F8F9FC;
+  --gray-100: #F0F2F5;
+  --gray-200: #D8DCE4;
+  --gray-400: #8A929E;
+  --gray-700: #3C4250;
+  --text:     #1A2035;
+
+  --radius:   12px;
+  --radius-lg: 20px;
+  --shadow-sm: 0 2px 8px rgba(10,22,40,0.08);
+  --shadow-md: 0 4px 20px rgba(10,22,40,0.14);
+  --shadow-lg: 0 12px 48px rgba(10,22,40,0.20);
+  --transition: 0.28s cubic-bezier(0.4,0,0.2,1);
+}
+
+/* ── Reset & Base ── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; font-size: 16px; }
+body {
+  font-family: 'Source Serif 4', Georgia, serif;
+  color: var(--text);
+  background: var(--white);
+  line-height: 1.7;
+  overflow-x: hidden;
+}
+img { max-width: 100%; display: block; }
+a { color: var(--blue-500); text-decoration: none; }
+a:hover { color: var(--blue-400); }
+
+/* ── Typography ── */
+h1,h2,h3,h4,h5 {
+  font-family: 'Playfair Display', serif;
+  line-height: 1.2;
+  color: var(--blue-900);
+}
+h1 { font-size: clamp(2rem, 5vw, 3.5rem); font-weight: 900; }
+h2 { font-size: clamp(1.5rem, 3.5vw, 2.4rem); font-weight: 700; }
+h3 { font-size: clamp(1.15rem, 2.5vw, 1.6rem); font-weight: 600; }
+h4 { font-size: 1.1rem; font-weight: 600; }
+p  { margin-bottom: 1rem; }
+code, .mono { font-family: 'JetBrains Mono', monospace; font-size: 0.85em; }
+
+/* ── Skip link ── */
+.skip-link {
+  position: absolute; left: -9999px; top: 8px;
+  background: var(--blue-600); color: #fff;
+  padding: 8px 16px; border-radius: 4px; z-index: 9999;
+}
+.skip-link:focus { left: 8px; }
+
+/* ══════════════════════════════════════════
+   TOP HEADER / NAV
+══════════════════════════════════════════ */
+.site-header {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+  background: rgba(10,22,40,0.97);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(200,168,75,0.25);
+}
+.nav-inner {
+  max-width: 1280px; margin: 0 auto;
+  display: flex; align-items: center; gap: 1rem;
+  padding: 0 2rem; height: 68px;
+}
+.nav-brand {
+  display: flex; align-items: center; gap: 0.75rem;
+  flex-shrink: 0;
+}
+.nav-logo-mark {
+  width: 38px; height: 38px; border-radius: 8px;
+  background: linear-gradient(135deg, var(--blue-500), var(--blue-400));
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Playfair Display', serif;
+  font-size: 1.1rem; font-weight: 900; color: #fff;
+  border: 1.5px solid var(--gold);
+}
+.nav-brand-text { display: flex; flex-direction: column; }
+.nav-brand-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 0.85rem; font-weight: 700; color: #fff;
+  letter-spacing: 0.02em;
+}
+.nav-brand-sub {
+  font-size: 0.68rem; color: var(--gold-lt);
+  font-family: 'JetBrains Mono', monospace;
+  letter-spacing: 0.05em;
+}
+.nav-links {
+  display: flex; align-items: center; gap: 0.25rem;
+  margin-left: auto; list-style: none;
+}
+.nav-links a {
+  display: block; padding: 0.4rem 0.85rem;
+  font-family: 'Source Serif 4', serif;
+  font-size: 0.82rem; color: rgba(255,255,255,0.78);
+  border-radius: 6px;
+  transition: background var(--transition), color var(--transition);
+}
+.nav-links a:hover, .nav-links a.active {
+  background: rgba(46,109,180,0.35); color: #fff;
+}
+.nav-burger {
+  display: none; background: none; border: none;
+  cursor: pointer; padding: 8px; margin-left: auto;
+  color: #fff;
+}
+.nav-burger span {
+  display: block; width: 22px; height: 2px;
+  background: currentColor; margin: 5px 0;
+  transition: transform var(--transition), opacity var(--transition);
+}
+
+/* ══════════════════════════════════════════
+   HERO
+══════════════════════════════════════════ */
+.hero {
+  min-height: 100vh;
+  background: var(--blue-900);
+  background-image:
+    radial-gradient(ellipse 80% 60% at 60% 40%, rgba(30,82,153,0.45) 0%, transparent 70%),
+    radial-gradient(ellipse 40% 40% at 10% 80%, rgba(200,168,75,0.08) 0%, transparent 60%);
+  display: flex; align-items: center;
+  position: relative; overflow: hidden;
+  padding-top: 68px;
+}
+.hero::before {
+  content: '';
+  position: absolute; inset: 0;
+  background-image:
+    repeating-linear-gradient(0deg, transparent, transparent 79px, rgba(255,255,255,0.03) 80px),
+    repeating-linear-gradient(90deg, transparent, transparent 79px, rgba(255,255,255,0.03) 80px);
+  pointer-events: none;
+}
+.hero-inner {
+  max-width: 1280px; margin: 0 auto; padding: 4rem 2rem 5rem;
+  display: grid; grid-template-columns: 1fr 420px; gap: 4rem;
+  align-items: center; position: relative; z-index: 1;
+}
+.hero-eyebrow {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.75rem; letter-spacing: 0.15em;
+  color: var(--gold); text-transform: uppercase;
+  margin-bottom: 1.25rem;
+  display: flex; align-items: center; gap: 0.75rem;
+}
+.hero-eyebrow::before {
+  content: ''; display: block;
+  width: 32px; height: 1px; background: var(--gold);
+}
+.hero h1 {
+  color: #fff; margin-bottom: 1.5rem;
+  text-shadow: 0 2px 24px rgba(0,0,0,0.4);
+}
+.hero h1 em { color: var(--gold); font-style: normal; }
+.hero-desc {
+  color: rgba(255,255,255,0.72);
+  font-size: 1.1rem; margin-bottom: 2.5rem;
+  max-width: 56ch;
+}
+.hero-ctas { display: flex; gap: 1rem; flex-wrap: wrap; }
+
+/* Jonassen pillars card in hero */
+.hero-card {
+  background: rgba(255,255,255,0.06);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: var(--radius-lg);
+  padding: 2rem;
+}
+.hero-card-title {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.72rem; letter-spacing: 0.12em;
+  color: var(--gold); text-transform: uppercase;
+  margin-bottom: 1.25rem;
+}
+.jonassen-pillars { list-style: none; }
+.jonassen-pillars li {
+  display: flex; gap: 0.85rem; align-items: flex-start;
+  padding: 0.85rem 0;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+.jonassen-pillars li:last-child { border-bottom: none; }
+.pillar-icon {
+  width: 36px; height: 36px; flex-shrink: 0;
+  border-radius: 8px; display: flex; align-items: center;
+  justify-content: center; font-size: 1rem;
+}
+.pillar-icon.pi-1 { background: rgba(30,82,153,0.4); }
+.pillar-icon.pi-2 { background: rgba(200,168,75,0.2); }
+.pillar-icon.pi-3 { background: rgba(91,149,208,0.25); }
+.pillar-icon.pi-4 { background: rgba(139,26,46,0.25); }
+.pillar-icon.pi-5 { background: rgba(46,109,180,0.3); }
+.pillar-text strong {
+  display: block; color: #fff; font-size: 0.85rem;
+  font-family: 'Source Serif 4', serif;
+}
+.pillar-text span { color: rgba(255,255,255,0.55); font-size: 0.75rem; }
+
+/* ══════════════════════════════════════════
+   SECTION SHELL
+══════════════════════════════════════════ */
+.section { padding: 5rem 2rem; }
+.section-inner { max-width: 1280px; margin: 0 auto; }
+.section-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.72rem; letter-spacing: 0.15em; text-transform: uppercase;
+  color: var(--blue-400); margin-bottom: 0.6rem;
+  display: flex; align-items: center; gap: 0.6rem;
+}
+.section-label::before {
+  content: ''; display: inline-block;
+  width: 24px; height: 1.5px; background: var(--blue-400);
+}
+.section-head { margin-bottom: 3rem; }
+.section-head h2 { margin-bottom: 0.75rem; }
+.section-head p { color: var(--gray-700); max-width: 64ch; font-size: 1.05rem; }
+
+/* ══════════════════════════════════════════
+   BUTTON SYSTEM
+══════════════════════════════════════════ */
+.btn {
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  padding: 0.7rem 1.5rem; border-radius: 8px;
+  font-family: 'Source Serif 4', serif;
+  font-size: 0.9rem; font-weight: 600;
+  cursor: pointer; transition: all var(--transition);
+  border: none; text-decoration: none;
+}
+.btn-primary {
+  background: var(--blue-500); color: #fff;
+}
+.btn-primary:hover { background: var(--blue-400); color: #fff; transform: translateY(-1px); box-shadow: var(--shadow-md); }
+.btn-ghost {
+  background: transparent; color: #fff;
+  border: 1.5px solid rgba(255,255,255,0.35);
+}
+.btn-ghost:hover { background: rgba(255,255,255,0.1); color: #fff; }
+.btn-outline {
+  background: transparent; color: var(--blue-500);
+  border: 1.5px solid var(--blue-200);
+}
+.btn-outline:hover { background: var(--blue-50); }
+.btn-gold {
+  background: var(--gold); color: var(--blue-900);
+}
+.btn-gold:hover { background: var(--gold-lt); color: var(--blue-900); transform: translateY(-1px); }
+.btn-sm { padding: 0.45rem 0.9rem; font-size: 0.82rem; }
+.btn-icon { font-size: 1rem; }
+
+/* ══════════════════════════════════════════
+   SECTION A — SCENARIO CLÍNICO
+══════════════════════════════════════════ */
+#escenario { background: var(--blue-50); }
+
+.case-grid {
+  display: grid; grid-template-columns: 380px 1fr; gap: 2.5rem;
+  align-items: start;
+}
+.case-card {
+  background: var(--blue-900);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-lg);
+  position: sticky; top: 88px;
+}
+.case-card-header {
+  padding: 2rem;
+  background: linear-gradient(135deg, var(--blue-800), var(--blue-700));
+  border-bottom: 1px solid rgba(200,168,75,0.2);
+}
+.case-badge {
+  display: inline-block;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.68rem; letter-spacing: 0.1em;
+  text-transform: uppercase; color: var(--gold);
+  background: rgba(200,168,75,0.15);
+  border: 1px solid rgba(200,168,75,0.3);
+  padding: 3px 10px; border-radius: 4px;
+  margin-bottom: 1rem;
+}
+.case-card-header h3 { color: #fff; font-size: 1.8rem; margin-bottom: 0.25rem; }
+.case-card-header .case-quote {
+  font-style: italic; color: rgba(255,255,255,0.7);
+  font-size: 0.88rem; line-height: 1.5;
+  border-left: 2px solid var(--gold); padding-left: 1rem; margin-top: 1rem;
+}
+.case-card-body { padding: 1.5rem; }
+.data-row {
+  display: flex; justify-content: space-between;
+  align-items: baseline; padding: 0.5rem 0;
+  border-bottom: 1px solid rgba(255,255,255,0.07);
+}
+.data-row:last-child { border-bottom: none; }
+.data-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.7rem; text-transform: uppercase;
+  color: var(--blue-300); letter-spacing: 0.08em;
+}
+.data-value { color: rgba(255,255,255,0.85); font-size: 0.88rem; text-align: right; }
+.data-tag {
+  display: inline-block; padding: 2px 8px;
+  border-radius: 4px; font-size: 0.75rem;
+  background: rgba(30,82,153,0.4); color: var(--blue-200);
+  margin: 2px;
+}
+
+.case-content { display: flex; flex-direction: column; gap: 1.5rem; }
+
+.case-block {
+  background: #fff; border-radius: var(--radius);
+  border: 1px solid var(--gray-200);
+  box-shadow: var(--shadow-sm);
+  overflow: hidden;
+}
+.case-block-header {
+  padding: 1rem 1.5rem;
+  background: var(--blue-900);
+  display: flex; align-items: center; gap: 0.75rem;
+  cursor: pointer;
+}
+.case-block-header h4 { color: #fff; font-size: 0.95rem; flex: 1; }
+.case-block-icon { font-size: 1.1rem; }
+.collapse-arrow {
+  color: var(--blue-300); font-size: 0.8rem;
+  transition: transform var(--transition);
+}
+.case-block.open .collapse-arrow { transform: rotate(180deg); }
+.case-block-body {
+  padding: 1.5rem;
+  display: none;
+}
+.case-block.open .case-block-body { display: block; }
+
+/* Timeline */
+.timeline { position: relative; padding-left: 1.5rem; }
+.timeline::before {
+  content: ''; position: absolute; left: 6px; top: 4px; bottom: 4px;
+  width: 2px; background: var(--blue-200);
+}
+.tl-item { position: relative; margin-bottom: 1.25rem; }
+.tl-dot {
+  position: absolute; left: -1.5rem;
+  top: 5px; width: 12px; height: 12px;
+  border-radius: 50%; background: var(--blue-500);
+  border: 2px solid #fff; box-shadow: 0 0 0 2px var(--blue-300);
+}
+.tl-year {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.72rem; color: var(--blue-400);
+  letter-spacing: 0.06em;
+}
+.tl-item p { font-size: 0.9rem; margin-bottom: 0.25rem; }
+
+/* Challenge Box */
+.challenge-box {
+  background: linear-gradient(135deg, var(--blue-900), var(--blue-800));
+  border-radius: var(--radius-lg); padding: 2.5rem;
+  border: 1px solid rgba(200,168,75,0.3);
+  position: relative; overflow: hidden;
+}
+.challenge-box::before {
+  content: '?';
+  position: absolute; right: -10px; top: -20px;
+  font-family: 'Playfair Display', serif;
+  font-size: 15rem; font-weight: 900;
+  color: rgba(255,255,255,0.03);
+  line-height: 1;
+}
+.challenge-eyebrow {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.7rem; letter-spacing: 0.12em;
+  color: var(--gold); text-transform: uppercase; margin-bottom: 1rem;
+}
+.challenge-box h3 { color: #fff; margin-bottom: 1rem; }
+.challenge-box p { color: rgba(255,255,255,0.75); margin-bottom: 1.5rem; }
+.challenge-tasks { list-style: none; margin-bottom: 2rem; }
+.challenge-tasks li {
+  display: flex; align-items: flex-start; gap: 0.75rem;
+  color: rgba(255,255,255,0.82); font-size: 0.92rem;
+  margin-bottom: 0.75rem;
+}
+.task-num {
+  flex-shrink: 0; width: 22px; height: 22px;
+  border-radius: 50%; background: var(--gold);
+  color: var(--blue-900); font-size: 0.72rem; font-weight: 700;
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'JetBrains Mono', monospace; margin-top: 2px;
+}
+
+/* ══════════════════════════════════════════
+   SECTION B — ASIGNATURAS / TABS
+══════════════════════════════════════════ */
+#asignaturas { background: #fff; }
+
+.tabs-wrapper { }
+.tabs-nav {
+  display: flex; gap: 0; overflow-x: auto;
+  border-bottom: 2px solid var(--gray-200);
+  scrollbar-width: none; margin-bottom: 0;
+  flex-wrap: wrap;
+}
+.tabs-nav::-webkit-scrollbar { display: none; }
+.tab-btn {
+  display: flex; flex-direction: column; align-items: flex-start;
+  padding: 0.85rem 1.25rem;
+  background: none; border: none;
+  border-bottom: 3px solid transparent;
+  margin-bottom: -2px;
+  cursor: pointer; white-space: nowrap;
+  transition: all var(--transition);
+  min-width: 150px;
+}
+.tab-btn:hover { background: var(--blue-50); }
+.tab-btn.active {
+  border-bottom-color: var(--blue-500);
+  background: var(--blue-50);
+}
+.tab-code {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.68rem; color: var(--blue-400);
+  letter-spacing: 0.06em; text-transform: uppercase;
+}
+.tab-name {
+  font-family: 'Source Serif 4', serif;
+  font-size: 0.85rem; color: var(--text); font-weight: 600;
+  text-align: left; white-space: normal;
+}
+.tab-btn.active .tab-name { color: var(--blue-600); }
+
+.tab-panels { padding-top: 2.5rem; }
+.tab-panel { display: none; animation: fadeUp 0.35s ease; }
+.tab-panel.active { display: block; }
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.tab-panel-inner {
+  display: grid; grid-template-columns: 1fr 340px; gap: 2.5rem;
+}
+.tab-content h3 { color: var(--blue-900); margin-bottom: 1rem; }
+.tab-content h4 {
+  color: var(--blue-700); margin: 1.5rem 0 0.5rem;
+  font-size: 1rem; display: flex; align-items: center; gap: 0.5rem;
+}
+.tab-content h4::before {
+  content: ''; display: inline-block;
+  width: 4px; height: 16px; background: var(--blue-400);
+  border-radius: 2px;
+}
+.tab-content ul, .tab-content ol {
+  padding-left: 1.5rem; margin-bottom: 1rem;
+}
+.tab-content li { margin-bottom: 0.4rem; font-size: 0.95rem; }
+.tab-content p { font-size: 0.95rem; color: var(--gray-700); }
+
+.tab-aside { display: flex; flex-direction: column; gap: 1.25rem; }
+
+.aside-card {
+  background: var(--gray-100); border-radius: var(--radius);
+  padding: 1.25rem; border: 1px solid var(--gray-200);
+}
+.aside-card.gold-card {
+  background: linear-gradient(135deg, #fffbf0, #fef8e7);
+  border-color: rgba(200,168,75,0.35);
+}
+.aside-card.blue-card {
+  background: linear-gradient(135deg, var(--blue-50), #e8f0f9);
+  border-color: var(--blue-200);
+}
+.aside-card-title {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.68rem; letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--blue-500); margin-bottom: 0.75rem;
+}
+.tool-list { list-style: none; }
+.tool-list li {
+  display: flex; align-items: center; gap: 0.6rem;
+  font-size: 0.85rem; padding: 0.35rem 0;
+  border-bottom: 1px solid rgba(0,0,0,0.06);
+  color: var(--gray-700);
+}
+.tool-list li:last-child { border-bottom: none; }
+.tool-list li::before {
+  content: '▸'; color: var(--blue-400); font-size: 0.7rem;
+}
+
+.scaffold-btn {
+  display: flex; align-items: center; gap: 0.5rem;
+  padding: 0.6rem 1rem;
+  background: var(--blue-500); color: #fff;
+  border: none; border-radius: 6px; cursor: pointer;
+  font-family: 'Source Serif 4', serif;
+  font-size: 0.82rem; font-weight: 600;
+  transition: all var(--transition); width: 100%;
+  justify-content: center; margin-top: 0.5rem;
+}
+.scaffold-btn:hover { background: var(--blue-400); }
+
+/* ══════════════════════════════════════════
+   SECTION C — RECURSOS / REPOSITORIO
+══════════════════════════════════════════ */
+#recursos { background: var(--blue-900); }
+#recursos .section-label { color: var(--gold); }
+#recursos .section-label::before { background: var(--gold); }
+#recursos .section-head h2 { color: #fff; }
+#recursos .section-head p { color: rgba(255,255,255,0.65); }
+
+.resources-grid {
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.5rem;
+}
+.resource-card {
+  background: rgba(255,255,255,0.07);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: var(--radius); padding: 1.5rem;
+  transition: all var(--transition);
+  display: flex; flex-direction: column;
+}
+.resource-card:hover {
+  background: rgba(255,255,255,0.11);
+  transform: translateY(-3px);
+  border-color: rgba(200,168,75,0.3);
+}
+.resource-icon {
+  width: 48px; height: 48px; border-radius: 10px;
+  background: rgba(30,82,153,0.5);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.4rem; margin-bottom: 1rem;
+}
+.resource-card h4 { color: #fff; font-size: 0.95rem; margin-bottom: 0.4rem; }
+.resource-card p { color: rgba(255,255,255,0.6); font-size: 0.82rem; flex: 1; }
+.resource-card .btn { margin-top: 1rem; }
+
+/* ══════════════════════════════════════════
+   SECTION D — FORO / GAMIFICACIÓN
+══════════════════════════════════════════ */
+#foro { background: var(--gray-100); }
+
+.forum-phases {
+  display: flex; flex-direction: column; gap: 2.5rem;
+}
+.forum-phase {
+  background: #fff; border-radius: var(--radius-lg);
+  overflow: hidden; box-shadow: var(--shadow-sm);
+  border: 1px solid var(--gray-200);
+}
+.phase-header {
+  padding: 1.5rem 2rem;
+  display: flex; align-items: center; gap: 1.25rem;
+  background: var(--blue-900);
+}
+.phase-num {
+  width: 44px; height: 44px; border-radius: 50%;
+  background: var(--gold); color: var(--blue-900);
+  font-family: 'Playfair Display', serif;
+  font-size: 1.2rem; font-weight: 900;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+.phase-header h3 { color: #fff; font-size: 1.1rem; }
+.phase-header p { color: rgba(255,255,255,0.65); font-size: 0.82rem; }
+.phase-body { padding: 2rem; }
+
+.forum-questions { list-style: none; margin-bottom: 1.5rem; }
+.fq-item {
+  background: var(--blue-50); border-radius: 10px;
+  padding: 1.25rem; margin-bottom: 1rem;
+  border-left: 3px solid var(--blue-400);
+  cursor: pointer; transition: all var(--transition);
+}
+.fq-item:hover { background: var(--blue-100); transform: translateX(3px); }
+.fq-item h4 { font-size: 0.9rem; color: var(--blue-800); margin-bottom: 0.3rem; }
+.fq-item p { font-size: 0.82rem; color: var(--gray-700); margin: 0; }
+.fq-meta {
+  display: flex; gap: 1rem; margin-top: 0.6rem;
+  font-family: 'JetBrains Mono', monospace; font-size: 0.68rem;
+  color: var(--gray-400);
+}
+.badge-pts {
+  background: var(--blue-500); color: #fff;
+  padding: 2px 8px; border-radius: 12px;
+  font-size: 0.68rem; font-family: 'JetBrains Mono', monospace;
+}
+.badge-dif {
+  padding: 2px 8px; border-radius: 12px;
+  font-size: 0.68rem; font-family: 'JetBrains Mono', monospace;
+  background: rgba(200,168,75,0.15); color: var(--gold);
+}
+
+/* Reply box */
+.reply-box {
+  background: var(--gray-100); border-radius: 10px;
+  padding: 1.25rem;
+  display: none; /* toggled by JS */
+}
+.reply-box.open { display: block; }
+.reply-box textarea {
+  width: 100%; min-height: 100px;
+  font-family: 'Source Serif 4', serif; font-size: 0.9rem;
+  border: 1px solid var(--gray-200); border-radius: 6px;
+  padding: 0.75rem; resize: vertical; color: var(--text);
+  background: #fff;
+}
+.reply-box textarea:focus { outline: none; border-color: var(--blue-400); }
+
+/* Leaderboard */
+.leaderboard { list-style: none; }
+.lb-item {
+  display: flex; align-items: center; gap: 0.75rem;
+  padding: 0.75rem; border-radius: 8px;
+  margin-bottom: 0.5rem; background: var(--blue-50);
+}
+.lb-rank {
+  width: 28px; height: 28px; border-radius: 50%;
+  background: var(--gray-200); color: var(--gray-700);
+  font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; font-weight: 700;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+.lb-item.gold-rank .lb-rank { background: var(--gold); color: var(--blue-900); }
+.lb-item.silver-rank .lb-rank { background: #C0C8D0; color: #333; }
+.lb-item.bronze-rank .lb-rank { background: #CD7F32; color: #fff; }
+.lb-name { flex: 1; font-size: 0.88rem; }
+.lb-pts {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.8rem; color: var(--blue-500); font-weight: 600;
+}
+
+/* ══════════════════════════════════════════
+   SCAFFOLDING MODAL
+══════════════════════════════════════════ */
+.modal-overlay {
+  position: fixed; inset: 0; z-index: 2000;
+  background: rgba(10,22,40,0.75); backdrop-filter: blur(4px);
+  display: flex; align-items: center; justify-content: center;
+  padding: 1.5rem;
+  opacity: 0; pointer-events: none;
+  transition: opacity var(--transition);
+}
+.modal-overlay.open { opacity: 1; pointer-events: all; }
+.modal-box {
+  background: #fff; border-radius: var(--radius-lg);
+  max-width: 760px; width: 100%; max-height: 85vh;
+  overflow-y: auto;
+  box-shadow: var(--shadow-lg);
+  transform: translateY(20px);
+  transition: transform var(--transition);
+}
+.modal-overlay.open .modal-box { transform: translateY(0); }
+.modal-header {
+  padding: 1.75rem 2rem;
+  background: var(--blue-900);
+  border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+  display: flex; align-items: flex-start; justify-content: space-between;
+}
+.modal-header h3 { color: #fff; }
+.modal-header p { color: rgba(255,255,255,0.65); font-size: 0.85rem; margin-top: 0.25rem; margin-bottom: 0; }
+.modal-close {
+  background: none; border: none; color: rgba(255,255,255,0.6);
+  font-size: 1.4rem; cursor: pointer; padding: 4px; line-height: 1;
+}
+.modal-close:hover { color: #fff; }
+.modal-body { padding: 2rem; }
+.modal-section { margin-bottom: 1.75rem; }
+.modal-section h4 {
+  color: var(--blue-800); font-size: 1rem; margin-bottom: 0.75rem;
+  padding-bottom: 0.4rem; border-bottom: 1px solid var(--gray-200);
+}
+.modal-section p, .modal-section li { font-size: 0.92rem; color: var(--gray-700); }
+.modal-section ul { padding-left: 1.25rem; }
+.modal-section li { margin-bottom: 0.35rem; }
+.tip-box {
+  background: linear-gradient(135deg, #fffbf0, #fef8e7);
+  border: 1px solid rgba(200,168,75,0.35);
+  border-radius: 8px; padding: 1rem 1.25rem; margin-top: 0.75rem;
+}
+.tip-box p { font-size: 0.88rem; margin: 0; color: var(--gray-700); }
+
+/* ══════════════════════════════════════════
+   REFERENCES
+══════════════════════════════════════════ */
+#referencias { background: var(--blue-50); }
+.ref-list { list-style: none; }
+.ref-list li {
+  font-size: 0.9rem; color: var(--gray-700);
+  padding: 0.85rem 0; border-bottom: 1px solid var(--gray-200);
+  line-height: 1.6;
+}
+.ref-list li:last-child { border-bottom: none; }
+.ref-num {
+  display: inline-block;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.72rem; color: var(--blue-500);
+  margin-right: 0.5rem;
+}
+
+/* ══════════════════════════════════════════
+   FOOTER
+══════════════════════════════════════════ */
+.site-footer {
+  background: var(--blue-900);
+  border-top: 1px solid rgba(255,255,255,0.08);
+  padding: 3rem 2rem;
+  text-align: center;
+}
+.footer-inner { max-width: 1280px; margin: 0 auto; }
+.footer-brand {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.2rem; color: #fff; margin-bottom: 0.5rem;
+}
+.footer-sub {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.72rem; color: rgba(255,255,255,0.4);
+  letter-spacing: 0.08em;
+}
+.footer-credits {
+  margin-top: 1.5rem; font-size: 0.78rem;
+  color: rgba(255,255,255,0.3);
+}
+
+/* ══════════════════════════════════════════
+   PROGRESS BAR (top)
+══════════════════════════════════════════ */
+#progress-bar {
+  position: fixed; top: 68px; left: 0; right: 0;
+  height: 3px; background: transparent; z-index: 999;
+}
+#progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--blue-400), var(--gold));
+  width: 0%; transition: width 0.1s linear;
+}
+
+/* ══════════════════════════════════════════
+   UTILITIES
+══════════════════════════════════════════ */
+.tag {
+  display: inline-block; padding: 3px 10px;
+  border-radius: 20px; font-size: 0.75rem;
+  font-family: 'JetBrains Mono', monospace;
+  background: var(--blue-100); color: var(--blue-700);
+  margin: 2px;
+}
+.divider {
+  border: none; border-top: 1px solid var(--gray-200); margin: 2rem 0;
+}
+.text-muted { color: var(--gray-400); }
+.text-center { text-align: center; }
+
+/* ══════════════════════════════════════════
+   RESPONSIVE
+══════════════════════════════════════════ */
+@media (max-width: 1024px) {
+  .hero-inner { grid-template-columns: 1fr; }
+  .hero-card { display: none; }
+  .case-grid { grid-template-columns: 1fr; }
+  .case-card { position: static; }
+  .tab-panel-inner { grid-template-columns: 1fr; }
+}
+@media (max-width: 768px) {
+  .nav-links { display: none; }
+  .nav-burger { display: block; }
+  .nav-links.open {
+    display: flex; flex-direction: column;
+    position: fixed; top: 68px; left: 0; right: 0;
+    background: var(--blue-900); padding: 1rem;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+  }
+  .section { padding: 3.5rem 1.25rem; }
+  .tabs-nav { flex-direction: column; border-bottom: none; }
+  .tab-btn { border-left: 3px solid transparent; border-bottom: none; min-width: 0; }
+  .tab-btn.active { border-left-color: var(--blue-500); border-bottom: none; }
+}
+
+/* ══════════════════════════════════════════
+   ANIMATIONS
+══════════════════════════════════════════ */
+.reveal {
+  opacity: 0; transform: translateY(24px);
+  transition: opacity 0.55s ease, transform 0.55s ease;
+}
+.reveal.visible { opacity: 1; transform: translateY(0); }
+
+  </style>
 </head>
 <body>
 
@@ -1221,6 +2029,365 @@
   </div>
 </div>
 
-<script src="js/script.js"></script>
+<script>
+/* ============================================================
+   EAC LUCÍA — script.js
+   Modelo de Jonassen | Entorno de Aprendizaje Constructivista
+   ============================================================ */
+
+"use strict";
+
+/* ── 1. PROGRESS BAR ── */
+(function initProgress() {
+  const fill = document.getElementById("progress-fill");
+  if (!fill) return;
+  const update = () => {
+    const scrolled = window.scrollY;
+    const total = document.documentElement.scrollHeight - window.innerHeight;
+    fill.style.width = total > 0 ? ((scrolled / total) * 100).toFixed(1) + "%" : "0%";
+  };
+  window.addEventListener("scroll", update, { passive: true });
+  update();
+})();
+
+/* ── 2. MOBILE NAV ── */
+(function initNav() {
+  const burger = document.querySelector(".nav-burger");
+  const links  = document.querySelector(".nav-links");
+  if (!burger || !links) return;
+  burger.addEventListener("click", () => {
+    const open = links.classList.toggle("open");
+    burger.setAttribute("aria-expanded", open);
+  });
+  // close on link click
+  links.querySelectorAll("a").forEach(a => {
+    a.addEventListener("click", () => links.classList.remove("open"));
+  });
+})();
+
+/* ── 3. ACTIVE NAV LINK (IntersectionObserver) ── */
+(function initActiveNav() {
+  const sections = document.querySelectorAll("section[id]");
+  const navLinks = document.querySelectorAll(".nav-links a");
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        navLinks.forEach(a => {
+          a.classList.toggle("active", a.getAttribute("href") === "#" + e.target.id);
+        });
+      }
+    });
+  }, { rootMargin: "-40% 0px -55% 0px" });
+  sections.forEach(s => obs.observe(s));
+})();
+
+/* ── 4. COLLAPSIBLE CASE BLOCKS ── */
+(function initCollapsibles() {
+  document.querySelectorAll(".case-block-header").forEach(header => {
+    const block = header.closest(".case-block");
+    header.addEventListener("click", () => {
+      const isOpen = block.classList.toggle("open");
+      header.setAttribute("aria-expanded", isOpen);
+      const body = block.querySelector(".case-block-body");
+      if (isOpen) {
+        body.style.display = "block";
+        body.style.animation = "fadeUp 0.3s ease";
+      } else {
+        body.style.display = "none";
+      }
+    });
+  });
+  // Open first block by default
+  const first = document.querySelector(".case-block");
+  if (first) {
+    first.classList.add("open");
+    const body = first.querySelector(".case-block-body");
+    if (body) body.style.display = "block";
+  }
+})();
+
+/* ── 5. TABS ── */
+(function initTabs() {
+  const tabBtns   = document.querySelectorAll(".tab-btn");
+  const tabPanels = document.querySelectorAll(".tab-panel");
+
+  tabBtns.forEach(btn => {
+    btn.addEventListener("click", () => {
+      const target = btn.dataset.tab;
+      tabBtns.forEach(b => {
+        b.classList.remove("active");
+        b.setAttribute("aria-selected", "false");
+      });
+      tabPanels.forEach(p => p.classList.remove("active"));
+      btn.classList.add("active");
+      btn.setAttribute("aria-selected", "true");
+      const panel = document.getElementById("panel-" + target);
+      if (panel) panel.classList.add("active");
+    });
+  });
+})();
+
+/* ── 6. SCAFFOLDING MODALS ── */
+const MODAL_CONTENT = {
+  formulacion: {
+    title: "Andamiaje: Formulación de Caso Clínico",
+    subtitle: "Modelo TTN (Tiempo–Tema–Narrativa) aplicado al caso de Lucía",
+    sections: [
+      {
+        h4: "¿Qué es la formulación de caso?",
+        content: "Es un mapa conceptual individualizado que integra los factores predisponentes, precipitantes, perpetuantes y protectores para explicar cómo y por qué se desarrolló el trastorno en esta persona específica (Johnstone & Dallos, 2014)."
+      },
+      {
+        h4: "Paso 1 — Línea de tiempo (Tiempo)",
+        content: `
+          <ul>
+            <li>2007 (10 años): TCE → inicio de síntomas prodrómicos (despersonalización, ilusiones visuales)</li>
+            <li>2013 (15 años): Primera valoración psiquiátrica; diagnóstico probable epilepsia</li>
+            <li>2021 (24 años): Primer episodio psicótico franco; hospitalización 84 días</li>
+            <li>Dic 2023: Embarazo → ajuste de tratamiento (retiro valproato)</li>
+            <li>Ene 2024: Parto por cesárea → suspensión total de antipsicóticos</li>
+            <li>Abr 2024: Recaída psicótica severa → segundo internamiento (32 días)</li>
+          </ul>
+        `
+      },
+      {
+        h4: "Paso 2 — Ejes temáticos (Tema)",
+        content: `
+          <ul>
+            <li><strong>Biológico:</strong> TCE, EEG anormal (foco fronto-parietal), antecedente epiléptico, preeclampsia</li>
+            <li><strong>Psicológico:</strong> Personalidad introvertida-esquizoide, escaso insight, delirios místico-religiosos</li>
+            <li><strong>Social:</strong> Violencia de pareja, pobreza, aislamiento, escasa red de apoyo</li>
+            <li><strong>Familiar:</strong> Padre fallecido, madre con epilepsia, dinámica de alta expresión emocional</li>
+          </ul>
+        `
+      },
+      {
+        h4: "Paso 3 — Narrativa clínica (Narrativa)",
+        content: `Lucía es una mujer de 26 años cuya vulnerabilidad biológica (TCE a los 10 años, antecedente epiléptico y posible predisposición genética) se ve potenciada por factores psicosociales crónicos (violencia de pareja, pobreza extrema, aislamiento social). 
+        El evento precipitante del segundo episodio fue la suspensión voluntaria del antipsicótico durante la lactancia, en un contexto de nulo apoyo familiar y social.`,
+        tip: "Consejo clínico: Siempre diferenciar factores que INICIAN el episodio (precipitantes) vs. factores que lo MANTIENEN (perpetuantes). En Lucía, la falta de apego al tratamiento es un factor perpetuante clave."
+      },
+      {
+        h4: "Aplicación de la GPC de Esquizofrenia",
+        content: `
+          <ul>
+            <li>Fase aguda: estabilización con antipsicótico + benzodiacepina</li>
+            <li>Fase de mantenimiento: Olanzapina 20 mg → reducir síntomas positivos y prolactina</li>
+            <li>Intervención psicosocial: IPSRT (Terapia Interpersonal y de Ritmo Social) para regularizar ciclos de sueño-vigilia</li>
+            <li>Intervención familiar: psicoeducación a cuidadores principales</li>
+          </ul>
+        `
+      }
+    ]
+  },
+  ipsrt: {
+    title: "Andamiaje: IPSRT — Prevención de Recaídas",
+    subtitle: "Terapia Interpersonal y de Ritmo Social aplicada al caso de Lucía",
+    sections: [
+      {
+        h4: "¿Qué es la IPSRT?",
+        content: "Modalidad terapéutica que combina técnicas de terapia interpersonal con el manejo de los ritmos sociales (ciclos de actividad, sueño y alimentación). Tiene evidencia en el mantenimiento de la remisión en trastornos del espectro psicótico (Frank et al., 2005)."
+      },
+      {
+        h4: "Aplicación al caso de Lucía",
+        content: `
+          <ul>
+            <li><strong>Registro de Ritmo Social:</strong> Identificar la irregularidad producida por la lactancia nocturna como disparador del insomnio y la descompensación.</li>
+            <li><strong>Regulación de rutinas:</strong> Establecer horarios fijos de sueño, alimentación y cuidado del bebé.</li>
+            <li><strong>Área interpersonal:</strong> Abordar el duelo de roles (de mujer autónoma a cuidadora con enfermedad crónica).</li>
+            <li><strong>Resolución del duelo:</strong> Pérdida del padre, violencia de pareja previa.</li>
+          </ul>
+        `,
+        tip: "Recuerda: en Lucía el disparador proximal de la recaída fue la alteración del ritmo sueño-vigilia por maternidad. La IPSRT aborda exactamente este mecanismo."
+      },
+      {
+        h4: "Contraindicaciones relativas a considerar",
+        content: `
+          <ul>
+            <li>Fase psicótica aguda activa (requiere primero estabilización farmacológica)</li>
+            <li>Insight nulo (trabajar psicoeducación antes)</li>
+            <li>Sin red de apoyo mínima (involucrar a la madre como aliada terapéutica)</li>
+          </ul>
+        `
+      }
+    ]
+  },
+  bprs: {
+    title: "Andamiaje: Evaluación Psicométrica en Psicosis",
+    subtitle: "Selección e interpretación de instrumentos para el caso de Lucía",
+    sections: [
+      {
+        h4: "Instrumentos recomendados por la GPC",
+        content: `
+          <ul>
+            <li><strong>PANSS</strong> (Escala de Síntomas Positivos y Negativos): Gold standard para psicosis. Evalúa 30 ítems. Indica gravedad basal y respuesta a tratamiento.</li>
+            <li><strong>BPRS</strong> (Escala Breve de Evaluación Psiquiátrica): 18–24 ítems; útil en urgencias y seguimiento.</li>
+            <li><strong>CDSS</strong> (Escala de Depresión de Calgary para Esquizofrenia): distingue síntomas negativos de depresión comórbida.</li>
+            <li><strong>GAF</strong> (Evaluación de Funcionamiento Global): imprescindible para planificación del alta.</li>
+          </ul>
+        `
+      },
+      {
+        h4: "Consideraciones en el caso de Lucía",
+        content: `
+          <ul>
+            <li>Aplicar en fase de mayor estabilidad (semanas 3-4 de internamiento)</li>
+            <li>Bajo nivel educativo (secundaria incompleta): usar versiones con lenguaje simplificado y apoyo del entrevistador</li>
+            <li>Nulo insight: aplicar primero escalas heteroadministradas (PANSS) antes de autoreporte</li>
+          </ul>
+        `,
+        tip: "Error frecuente: aplicar MMSE como sustituto de evaluación cognitiva en psicosis. En su lugar, utiliza MoCA o baterías cognitivas específicas (MATRICS) cuando el paciente esté estabilizado."
+      }
+    ]
+  }
+};
+
+function openModal(key) {
+  const data = MODAL_CONTENT[key];
+  if (!data) return;
+  const overlay = document.getElementById("scaffold-modal");
+  const titleEl = overlay.querySelector(".modal-title");
+  const subEl   = overlay.querySelector(".modal-subtitle");
+  const bodyEl  = overlay.querySelector(".modal-body");
+
+  titleEl.textContent = data.title;
+  subEl.textContent   = data.subtitle || "";
+  bodyEl.innerHTML    = "";
+
+  data.sections.forEach(sec => {
+    const div = document.createElement("div");
+    div.className = "modal-section";
+    const h4 = document.createElement("h4");
+    h4.textContent = sec.h4;
+    div.appendChild(h4);
+    if (sec.content) {
+      const p = document.createElement("div");
+      p.innerHTML = sec.content;
+      div.appendChild(p);
+    }
+    if (sec.tip) {
+      const tip = document.createElement("div");
+      tip.className = "tip-box";
+      tip.innerHTML = `<p>💡 <strong>Pista clínica:</strong> ${sec.tip}</p>`;
+      div.appendChild(tip);
+    }
+    bodyEl.appendChild(div);
+  });
+
+  overlay.classList.add("open");
+  document.body.style.overflow = "hidden";
+}
+
+function closeModal() {
+  const overlay = document.getElementById("scaffold-modal");
+  overlay.classList.remove("open");
+  document.body.style.overflow = "";
+}
+
+// Close on overlay click
+document.addEventListener("DOMContentLoaded", () => {
+  const overlay = document.getElementById("scaffold-modal");
+  if (overlay) {
+    overlay.addEventListener("click", e => {
+      if (e.target === overlay) closeModal();
+    });
+    document.addEventListener("keydown", e => {
+      if (e.key === "Escape") closeModal();
+    });
+  }
+});
+
+/* ── 7. FORUM INTERACTION ── */
+(function initForum() {
+  document.querySelectorAll(".fq-item").forEach(item => {
+    item.addEventListener("click", () => {
+      const replyBox = item.querySelector(".reply-box");
+      if (!replyBox) return;
+      const isOpen = replyBox.classList.toggle("open");
+      // auto-focus textarea
+      if (isOpen) {
+        const ta = replyBox.querySelector("textarea");
+        if (ta) setTimeout(() => ta.focus(), 50);
+      }
+    });
+  });
+
+  document.querySelectorAll(".reply-submit").forEach(btn => {
+    btn.addEventListener("click", e => {
+      e.stopPropagation();
+      const box  = btn.closest(".reply-box");
+      const ta   = box.querySelector("textarea");
+      const text = ta.value.trim();
+      if (!text) { ta.focus(); return; }
+      // Gamification: show XP toast
+      showToast("✅ Respuesta guardada — +15 XP");
+      ta.value = "";
+      box.classList.remove("open");
+      // Increment student score in UI (demo)
+      const lb = document.querySelector(".lb-item.gold-rank .lb-pts");
+      if (lb) {
+        const cur = parseInt(lb.textContent) || 0;
+        lb.textContent = (cur + 15) + " XP";
+      }
+    });
+  });
+})();
+
+/* ── 8. TOAST ── */
+function showToast(msg) {
+  let toastContainer = document.getElementById("toast-container");
+  if (!toastContainer) {
+    toastContainer = document.createElement("div");
+    toastContainer.id = "toast-container";
+    Object.assign(toastContainer.style, {
+      position: "fixed", bottom: "2rem", right: "2rem",
+      zIndex: "3000", display: "flex", flexDirection: "column", gap: "0.5rem"
+    });
+    document.body.appendChild(toastContainer);
+  }
+  const toast = document.createElement("div");
+  Object.assign(toast.style, {
+    background: "var(--blue-800)", color: "#fff",
+    padding: "0.75rem 1.25rem", borderRadius: "8px",
+    fontFamily: "'Source Serif 4', serif", fontSize: "0.88rem",
+    boxShadow: "var(--shadow-md)",
+    borderLeft: "3px solid var(--gold)",
+    animation: "fadeUp 0.3s ease",
+    transform: "translateY(0)"
+  });
+  toast.textContent = msg;
+  toastContainer.appendChild(toast);
+  setTimeout(() => {
+    toast.style.opacity = "0";
+    toast.style.transition = "opacity 0.3s";
+    setTimeout(() => toast.remove(), 300);
+  }, 3500);
+}
+
+/* ── 9. SCROLL REVEAL ── */
+(function initReveal() {
+  const els = document.querySelectorAll(".reveal");
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add("visible");
+        obs.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.12 });
+  els.forEach(el => obs.observe(el));
+})();
+
+/* ── 10. PRINT CASE ── */
+function printCase() {
+  window.print();
+}
+
+/* ── 11. DOWNLOAD SCAFFOLD (demo) ── */
+function downloadScaffold(filename) {
+  showToast("📄 Descargando guía: " + filename);
+}
+
+</script>
 </body>
 </html>
